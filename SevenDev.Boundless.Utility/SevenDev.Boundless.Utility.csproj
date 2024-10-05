@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+    <LangVersion>preview</LangVersion>
+    <Nullable>enable</Nullable>
+
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <CopyAllFiles>true</CopyAllFiles>
+    <RootNamespace>SevenDev.Boundless.Utility</RootNamespace>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <DebugType>portable</DebugType>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+
+    <Title>SevenDev.Boundless.Utility</Title>
+    <Version>0.0.0.3</Version>
+    <Description />
+    <Authors>Seven</Authors>
+
+    <PackageId>SevenDev.Boundless.Utility</PackageId>
+    <PackageReleaseNotes>SevenDev.Boundless.Utility release.</PackageReleaseNotes>
+    <!-- <PackageIcon>icon.png</PackageIcon> -->
+    <PackageTags />
+    <!-- <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile> -->
+    <PackageProjectUrl>https://github.com/AxelSevenS/Boundless-Package</PackageProjectUrl>
+
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>git@github.com:AxelSevenS/Boundless-Package.git</RepositoryUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- <None Include="../README.md" Pack="true" PackagePath="\" />
+    <None Include="../LICENSE" Pack="true" PackagePath="\" />
+    <None Include="./icon.png" Pack="true" PackagePath="" /> -->
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="GodotSharp" Version="4.3.0" />
+  </ItemGroup>
+</Project>
