@@ -6,13 +6,8 @@ on:
       bumpType:
         description: 'Bump Type'
         required: true
-        default: 'bump-build'
-        type: choice
-        options:
-          - bump-major
-          - bump-minor
-          - bump-build
-          - bump-revision
+        default: '*.*.^'
+        type: string
 
 jobs:
   bump-project-version:
