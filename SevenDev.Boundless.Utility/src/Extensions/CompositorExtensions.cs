@@ -90,7 +90,7 @@ public static class CompositorExtensions {
 
 		return (indexBuffer, indexArray);
 	}
-	public static (Rid indexBuffer, Rid indexArray)? IndexArrayCreate(this RenderingDevice renderingDevice, ushort[] indices, uint shapeVertices = 3, uint indexOffset = 0) {
+	public static (Rid indexBuffer, Rid indexArray) IndexArrayCreate(this RenderingDevice renderingDevice, ushort[] indices, uint shapeVertices = 3, uint indexOffset = 0) {
 		Rid indexBuffer = renderingDevice.IndexBufferCreate(indices, shapeVertices);
 		if (!indexBuffer.IsValid) {
 			throw new ArgumentException("Index Buffer is Invalid");
