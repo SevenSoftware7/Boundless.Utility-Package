@@ -49,9 +49,9 @@ public static class CompositorExtensions {
 		return bytes;
 	}
 
-	public static (Vector2I renderSize, uint xGroups, uint yGroups) GetRenderSize(this RenderSceneBuffersRD sceneBuffers, uint range = 8) {
+	public static (Vector2I renderSize, uint xGroups, uint yGroups) GetRenderSize(this RenderSceneBuffersRD sceneBuffers, uint range = 8u) {
 		Vector2I renderSize = sceneBuffers.GetInternalSize();
-		if (renderSize.X == 0.0 && renderSize.Y == 0.0) {
+		if (renderSize.X == 0 && renderSize.Y == 0) {
 			throw new ArgumentException("Render size is incorrect");
 		}
 
@@ -61,24 +61,24 @@ public static class CompositorExtensions {
 	}
 
 	public static (uint xGroups, uint yGroups) GetGroups(Vector2I renderSize, uint range) {
-		uint xGroups = (uint)(renderSize.X / range) + 1;
-		uint yGroups = (uint)(renderSize.Y / range) + 1;
+		uint xGroups = (uint)renderSize.X / range + 1;
+		uint yGroups = (uint)renderSize.Y / range + 1;
 
 		return (xGroups, yGroups);
 	}
 
 
-	public static Rid IndexBufferCreate(this RenderingDevice renderingDevice, uint[] indices, uint shapeVertices = 3) {
-		if (indices.Length % shapeVertices != 0) throw new ArgumentException($"Invalid number of values in the index buffer, there should be {shapeVertices} vertices in a shape. Total count : {indices.Length}", nameof(indices));
+	public static Rid IndexBufferCreate(this RenderingDevice renderingDevice, uint[] indices, uint shapeVertices = 3u) {
+		if (indices.Length % shapeVertices != 0u) throw new ArgumentException($"Invalid number of values in the index buffer, there should be {shapeVertices} vertices in a shape. Total count : {indices.Length}", nameof(indices));
 		return renderingDevice.IndexBufferCreate((uint)indices.Length, RenderingDevice.IndexBufferFormat.Uint32, CreateByteBuffer(indices));
 	}
-	public static Rid IndexBufferCreate(this RenderingDevice renderingDevice, ushort[] indices, uint shapeVertices = 3) {
-		if (indices.Length % shapeVertices != 0) throw new ArgumentException($"Invalid number of values in the index buffer, there should be {shapeVertices} vertices in a shape. Total count : {indices.Length}", nameof(indices));
+	public static Rid IndexBufferCreate(this RenderingDevice renderingDevice, ushort[] indices, uint shapeVertices = 3u) {
+		if (indices.Length % shapeVertices != 0u) throw new ArgumentException($"Invalid number of values in the index buffer, there should be {shapeVertices} vertices in a shape. Total count : {indices.Length}", nameof(indices));
 		return renderingDevice.IndexBufferCreate((uint)indices.Length, RenderingDevice.IndexBufferFormat.Uint16, CreateByteBuffer(indices));
 	}
 
 
-	public static (Rid indexBuffer, Rid indexArray) IndexArrayCreate(this RenderingDevice renderingDevice, uint[] indices, uint shapeVertices = 3, uint indexOffset = 0) {
+	public static (Rid indexBuffer, Rid indexArray) IndexArrayCreate(this RenderingDevice renderingDevice, uint[] indices, uint shapeVertices = 3u, uint indexOffset = 0u) {
 		Rid indexBuffer = renderingDevice.IndexBufferCreate(indices, shapeVertices);
 		if (!indexBuffer.IsValid) {
 			throw new ArgumentException("Index Buffer is Invalid");
@@ -90,7 +90,7 @@ public static class CompositorExtensions {
 
 		return (indexBuffer, indexArray);
 	}
-	public static (Rid indexBuffer, Rid indexArray) IndexArrayCreate(this RenderingDevice renderingDevice, ushort[] indices, uint shapeVertices = 3, uint indexOffset = 0) {
+	public static (Rid indexBuffer, Rid indexArray) IndexArrayCreate(this RenderingDevice renderingDevice, ushort[] indices, uint shapeVertices = 3u, uint indexOffset = 0u) {
 		Rid indexBuffer = renderingDevice.IndexBufferCreate(indices, shapeVertices);
 		if (!indexBuffer.IsValid) {
 			throw new ArgumentException("Index Buffer is Invalid");
@@ -103,20 +103,20 @@ public static class CompositorExtensions {
 		return (indexBuffer, indexArray);
 	}
 
-	public static Rid VertexBufferCreate(this RenderingDevice renderingDevice, float[] vertices, uint vertexLength = 3) {
+	public static Rid VertexBufferCreate(this RenderingDevice renderingDevice, float[] vertices, uint vertexLength = 3u) {
 		if (vertices.Length % vertexLength != 0) throw new ArgumentException($"Invalid number of values in the points buffer, there should be {vertexLength} float values per point. Total count : {vertices.Length}", nameof(vertices));
 		byte[] byteVertices = CreateByteBuffer(vertices);
 
 		return renderingDevice.VertexBufferCreate((uint)byteVertices.Length, byteVertices);
 	}
-	public static Rid VertexBufferCreate(this RenderingDevice renderingDevice, double[] vertices, uint vertexLength = 3) {
+	public static Rid VertexBufferCreate(this RenderingDevice renderingDevice, double[] vertices, uint vertexLength = 3u) {
 		if (vertices.Length % vertexLength != 0) throw new ArgumentException($"Invalid number of values in the points buffer, there should be {vertexLength} float values per point. Total count : {vertices.Length}", nameof(vertices));
 		byte[] byteVertices = CreateByteBuffer(vertices);
 
 		return renderingDevice.VertexBufferCreate((uint)byteVertices.Length, byteVertices);
 	}
 
-	public static (Rid vertexBuffer, Rid vertexArray) VertexArrayCreate(this RenderingDevice renderingDevice, float[] points, long vertexFormat, uint vertexLength = 3) {
+	public static (Rid vertexBuffer, Rid vertexArray) VertexArrayCreate(this RenderingDevice renderingDevice, float[] points, long vertexFormat, uint vertexLength = 3u) {
 		Rid vertexBuffer = renderingDevice.VertexBufferCreate(points);
 		if (!vertexBuffer.IsValid) {
 			throw new ArgumentException("Vertex Buffer is Invalid");
@@ -128,7 +128,7 @@ public static class CompositorExtensions {
 
 		return (vertexBuffer, vertexArray);
 	}
-	public static (Rid vertexBuffer, Rid vertexArray) VertexArrayCreate(this RenderingDevice renderingDevice, double[] points, long vertexFormat, uint vertexLength = 3) {
+	public static (Rid vertexBuffer, Rid vertexArray) VertexArrayCreate(this RenderingDevice renderingDevice, double[] points, long vertexFormat, uint vertexLength = 3u) {
 		Rid vertexBuffer = renderingDevice.VertexBufferCreate(points);
 		if (!vertexBuffer.IsValid) {
 			throw new ArgumentException("Vertex Buffer is Invalid");
