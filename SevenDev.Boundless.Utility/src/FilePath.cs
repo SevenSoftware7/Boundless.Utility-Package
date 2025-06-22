@@ -81,9 +81,15 @@ public struct FilePath : IEquatable<FilePath> {
 	public FilePath(string path) {
 		int lastSeparator = path.LastIndexOf('/');
 		if (lastSeparator == -1) {
+			lastSeparator = path.LastIndexOf('\\');
+		}
+
+
+		if (lastSeparator == -1) {
 			FileName = path;
 			Directory = new DirectoryPath(string.Empty);
-		} else {
+		}
+		else {
 			FileName = path[(lastSeparator + 1)..];
 			Directory = new DirectoryPath(path[..lastSeparator]);
 		}

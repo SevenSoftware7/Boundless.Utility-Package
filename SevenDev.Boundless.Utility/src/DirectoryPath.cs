@@ -11,7 +11,7 @@ public partial struct DirectoryPath : IEquatable<DirectoryPath> {
 	/// Regular expression to clean leading and trailing slashes from the path.
 	/// </summary>
 	/// <returns>A <see cref="Regex"/> to clean slashes.</returns>
-	[GeneratedRegex(@"^/*(.*?)/*$")]
+	[GeneratedRegex(@"^[/\\]*(.*?)[/\\]*$")]
 	private static partial Regex CleanSlashes();
 
 	/// <summary>
