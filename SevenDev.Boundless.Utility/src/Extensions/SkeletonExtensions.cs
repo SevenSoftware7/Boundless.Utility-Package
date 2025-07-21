@@ -3,7 +3,7 @@ namespace SevenDev.Boundless.Utility;
 using Godot;
 
 public static class SkeletonExtensions {
-	public static Vector3 GetBonePositionOrDefault(this Skeleton3D skeleton, StringName boneName, Vector3 defaultPosition) {
+	public static Vector3 GetBonePositionOrDefault(this Skeleton3D? skeleton, StringName boneName, Vector3 defaultPosition) {
 		if (skeleton is null)
 			return defaultPosition;
 
@@ -13,7 +13,7 @@ public static class SkeletonExtensions {
 
 		return skeleton.ToGlobal(skeleton.GetBoneGlobalPose(boneIndex).Origin);
 	}
-	public static bool TryGetBonePosition(this Skeleton3D skeleton, StringName boneName, out Vector3 position) {
+	public static bool TryGetBonePosition(this Skeleton3D? skeleton, StringName boneName, out Vector3 position) {
 		position = Vector3.Zero;
 		if (skeleton is null)
 			return false;
@@ -28,7 +28,7 @@ public static class SkeletonExtensions {
 	}
 
 
-	public static Transform3D GetBoneTransformOrDefault(this Skeleton3D skeleton, StringName boneName, Transform3D defaultTransform) {
+	public static Transform3D GetBoneTransformOrDefault(this Skeleton3D? skeleton, StringName boneName, Transform3D defaultTransform) {
 		if (skeleton is null)
 			return defaultTransform;
 
@@ -40,7 +40,7 @@ public static class SkeletonExtensions {
 		Transform3D pose = skeleton.GetBoneGlobalPose(boneIndex);
 		return skeleton.GlobalTransform * pose;
 	}
-	public static bool TryGetBoneTransform(this Skeleton3D skeleton, StringName boneName, out Transform3D transform) {
+	public static bool TryGetBoneTransform(this Skeleton3D? skeleton, StringName boneName, out Transform3D transform) {
 		transform = Transform3D.Identity;
 		if (skeleton is null)
 			return false;
