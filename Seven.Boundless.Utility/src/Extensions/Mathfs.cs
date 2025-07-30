@@ -2,60 +2,94 @@ namespace Seven.Boundless.Utility;
 
 using System;
 using System.Runtime.CompilerServices;
-using Godot;
 
 public static class Mathfs {
-	public static float RadToDot(this float radians) => 1f - radians * 2f / Mathf.Pi;
-	public static double RadToDot(this double radians) => 1 - radians * 2 / Math.PI;
+	public const float Pi = (float)Math.PI;
+	public const double PiDouble = Math.PI;
+
+	public const float Epsilon = 1E-06f;
+	public const double EpsilonDouble = 1E-14;
+
+
+	public static float RadToDot(this float radians) => 1f - radians * 2f / Pi;
+	public static double RadToDot(this double radians) => 1 - radians * 2 / PiDouble;
 
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static float Clamp01(this float value) {
-		return Mathf.Clamp(value, 0f, 1f);
+		return Math.Clamp(value, 0f, 1f);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static double Clamp01(this double value) {
-		return Mathf.Clamp(value, 0, 1);
+		return Math.Clamp(value, 0, 1);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static bool IsEqualApprox(this float value, float other) {
-		return Mathf.IsEqualApprox(value, other);
+		if (value == other) return true;
+
+		float tolerance = Epsilon * Math.Abs(value);
+		if (tolerance < Epsilon)
+		{
+			tolerance = Epsilon;
+		}
+
+		return Math.Abs(value - other) < (tolerance < Epsilon ? Epsilon : tolerance);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static bool IsEqualApprox(this double value, double other) {
-		return Mathf.IsEqualApprox(value, other);
+		if (value == other) return true;
+
+		double tolerance = EpsilonDouble * Math.Abs(value);
+		if (tolerance < EpsilonDouble)
+		{
+			tolerance = EpsilonDouble;
+		}
+
+		return Math.Abs(value - other) < (tolerance < EpsilonDouble ? EpsilonDouble : tolerance);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static bool IsZeroApprox(this float value) {
-		return Mathf.IsZeroApprox(value);
+		return Math.Abs(value) < Epsilon;
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static bool IsZeroApprox(this double value) {
-		return Mathf.IsZeroApprox(value);
+		return Math.Abs(value) < EpsilonDouble;
 	}
 
 
-	public static float MoveToward(this float from, float to, float delta) => Mathf.MoveToward(from, to, delta);
-	public static double MoveToward(this double from, double to, double delta) => Mathf.MoveToward(from, to, delta);
+	public static float MoveToward(this float from, float to, float delta) {
+		if (Math.Abs(to - from) <= delta) return to;
 
-	public static float Lerp(this float from, float to, float amount) => Mathf.Lerp(from, to, amount);
+		return from + Math.Sign(to - from) * delta;
+	}
+	public static double MoveToward(this double from, double to, double delta) {
+		if (Math.Abs(to - from) <= delta) return to;
+
+		return from + Math.Sign(to - from) * delta;
+	}
+
+	public static float Lerp(this float from, float to, float amount) {
+		return from + (to - from) * amount;
+	}
 	public static float ClampedLerp(this float from, float to, float amount) {
 		float res = from + (to - from) * amount;
-		if (amount > Mathf.Epsilon && from.IsEqualApprox(res)) {
+		if (amount > Epsilon && from.IsEqualApprox(res)) {
 			return to;
 		}
 		return res;
 	}
 
-	public static double Lerp(this double from, double to, double amount) => Mathf.Lerp(from, to, amount);
+	public static double Lerp(this double from, double to, double amount) {
+		return from + (to - from) * amount;
+	}
 	public static double ClampedLerp(this double from, double to, double amount) {
 		double res = from + (to - from) * amount;
-		if (amount > Mathf.Epsilon && from.IsEqualApprox(res)) {
+		if (amount > EpsilonDouble && from.IsEqualApprox(res)) {
 			return to;
 		}
 		return res;

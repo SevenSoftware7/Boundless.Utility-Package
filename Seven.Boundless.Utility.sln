@@ -4,6 +4,8 @@ VisualStudioVersion = 17.5.002.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seven.Boundless.Utility", "Seven.Boundless.Utility\Seven.Boundless.Utility.csproj", "{AF36F4AD-DB26-4877-9AA8-542C60E5C8B1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seven.Boundless.Utility.Godot", "Seven.Boundless.Utility.Godot\Seven.Boundless.Utility.Godot.csproj", "{3D7C6A73-FCA2-4D5C-B37C-31CF6FD006F6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -14,6 +16,10 @@ Global
 		{AF36F4AD-DB26-4877-9AA8-542C60E5C8B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AF36F4AD-DB26-4877-9AA8-542C60E5C8B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AF36F4AD-DB26-4877-9AA8-542C60E5C8B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D7C6A73-FCA2-4D5C-B37C-31CF6FD006F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D7C6A73-FCA2-4D5C-B37C-31CF6FD006F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D7C6A73-FCA2-4D5C-B37C-31CF6FD006F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D7C6A73-FCA2-4D5C-B37C-31CF6FD006F6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
