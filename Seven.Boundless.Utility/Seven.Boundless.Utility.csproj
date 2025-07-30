@@ -36,5 +36,6 @@
 
   <ItemGroup>
     <PackageReference Include="GodotSharp" Version="4.3.0" />
+    <PackageReference Include="YamlDotNet" Version="16.2.0" />
   </ItemGroup>
 </Project>
