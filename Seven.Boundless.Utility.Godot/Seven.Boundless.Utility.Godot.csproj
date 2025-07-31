@@ -37,6 +37,6 @@
   <ItemGroup>
     <ProjectReference Include="../Seven.Boundless.Utility/Seven.Boundless.Utility.csproj" />
 
-    <PackageReference Include="GodotSharp" Version="4.3.0" />
+    <PackageReference Include="GodotSharp" Version="4.4.1" />
   </ItemGroup>
 </Project>
