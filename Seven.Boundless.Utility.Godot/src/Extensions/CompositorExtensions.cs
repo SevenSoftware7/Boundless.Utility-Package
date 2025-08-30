@@ -5,50 +5,6 @@ using Godot;
 using Godot.Collections;
 
 public static class CompositorExtensions {
-
-	public static byte[] CreateByteBuffer(float[] floats) {
-		byte[] bytes = new byte[floats.Length * sizeof(float)];
-		Buffer.BlockCopy(floats, 0, bytes, 0, bytes.Length);
-		return bytes;
-	}
-	public static byte[] CreateByteBuffer(double[] doubles) {
-		byte[] bytes = new byte[doubles.Length * sizeof(double)];
-		Buffer.BlockCopy(doubles, 0, bytes, 0, bytes.Length);
-		return bytes;
-	}
-
-	public static byte[] CreateByteBuffer(int[] ints) {
-		byte[] bytes = new byte[ints.Length * sizeof(int)];
-		Buffer.BlockCopy(ints, 0, bytes, 0, bytes.Length);
-		return bytes;
-	}
-	public static byte[] CreateByteBuffer(uint[] uints) {
-		byte[] bytes = new byte[uints.Length * sizeof(uint)];
-		Buffer.BlockCopy(uints, 0, bytes, 0, bytes.Length);
-		return bytes;
-	}
-	public static byte[] CreateByteBuffer(short[] shorts) {
-		byte[] bytes = new byte[shorts.Length * sizeof(short)];
-		Buffer.BlockCopy(shorts, 0, bytes, 0, bytes.Length);
-		return bytes;
-	}
-	public static byte[] CreateByteBuffer(ushort[] ushorts) {
-		byte[] bytes = new byte[ushorts.Length * sizeof(ushort)];
-		Buffer.BlockCopy(ushorts, 0, bytes, 0, bytes.Length);
-		return bytes;
-	}
-
-	public static byte[] CreateByteBuffer(long[] longs) {
-		byte[] bytes = new byte[longs.Length * sizeof(long)];
-		Buffer.BlockCopy(longs, 0, bytes, 0, bytes.Length);
-		return bytes;
-	}
-	public static byte[] CreateByteBuffer(ulong[] ulongs) {
-		byte[] bytes = new byte[ulongs.Length * sizeof(ulong)];
-		Buffer.BlockCopy(ulongs, 0, bytes, 0, bytes.Length);
-		return bytes;
-	}
-
 	public static (Vector2I renderSize, uint xGroups, uint yGroups) GetRenderSize(this RenderSceneBuffersRD sceneBuffers, uint range = 8u) {
 		Vector2I renderSize = sceneBuffers.GetInternalSize();
 		if (renderSize.X == 0 && renderSize.Y == 0) {
@@ -70,11 +26,11 @@ public static class CompositorExtensions {
 
 	public static Rid IndexBufferCreate(this RenderingDevice renderingDevice, uint[] indices, uint shapeVertices = 3u) {
 		if (indices.Length % shapeVertices != 0u) throw new ArgumentException($"Invalid number of values in the index buffer, there should be {shapeVertices} vertices in a shape. Total count : {indices.Length}", nameof(indices));
-		return renderingDevice.IndexBufferCreate((uint)indices.Length, RenderingDevice.IndexBufferFormat.Uint32, CreateByteBuffer(indices));
+		return renderingDevice.IndexBufferCreate((uint)indices.Length, RenderingDevice.IndexBufferFormat.Uint32, ByteUtility.CreateByteBuffer(indices));
 	}
 	public static Rid IndexBufferCreate(this RenderingDevice renderingDevice, ushort[] indices, uint shapeVertices = 3u) {
 		if (indices.Length % shapeVertices != 0u) throw new ArgumentException($"Invalid number of values in the index buffer, there should be {shapeVertices} vertices in a shape. Total count : {indices.Length}", nameof(indices));
-		return renderingDevice.IndexBufferCreate((uint)indices.Length, RenderingDevice.IndexBufferFormat.Uint16, CreateByteBuffer(indices));
+		return renderingDevice.IndexBufferCreate((uint)indices.Length, RenderingDevice.IndexBufferFormat.Uint16, ByteUtility.CreateByteBuffer(indices));
 	}
 
 
@@ -105,13 +61,13 @@ public static class CompositorExtensions {
 
 	public static Rid VertexBufferCreate(this RenderingDevice renderingDevice, float[] vertices, uint vertexLength = 3u) {
 		if (vertices.Length % vertexLength != 0) throw new ArgumentException($"Invalid number of values in the points buffer, there should be {vertexLength} float values per point. Total count : {vertices.Length}", nameof(vertices));
-		byte[] byteVertices = CreateByteBuffer(vertices);
+		byte[] byteVertices = ByteUtility.CreateByteBuffer(vertices);
 
 		return renderingDevice.VertexBufferCreate((uint)byteVertices.Length, byteVertices);
 	}
 	public static Rid VertexBufferCreate(this RenderingDevice renderingDevice, double[] vertices, uint vertexLength = 3u) {
 		if (vertices.Length % vertexLength != 0) throw new ArgumentException($"Invalid number of values in the points buffer, there should be {vertexLength} float values per point. Total count : {vertices.Length}", nameof(vertices));
-		byte[] byteVertices = CreateByteBuffer(vertices);
+		byte[] byteVertices = ByteUtility.CreateByteBuffer(vertices);
 
 		return renderingDevice.VertexBufferCreate((uint)byteVertices.Length, byteVertices);
 	}
