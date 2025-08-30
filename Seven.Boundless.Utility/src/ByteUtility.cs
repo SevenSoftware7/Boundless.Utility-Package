@@ -24,6 +24,7 @@ public static class ByteUtility {
 		Buffer.BlockCopy(uints, 0, bytes, 0, bytes.Length);
 		return bytes;
 	}
+
 	public static byte[] CreateByteBuffer(short[] shorts) {
 		byte[] bytes = new byte[shorts.Length * sizeof(short)];
 		Buffer.BlockCopy(shorts, 0, bytes, 0, bytes.Length);
