@@ -79,11 +79,7 @@ public struct FilePath : IEquatable<FilePath> {
 	/// </summary>
 	/// <param name="path">The full path.</param>
 	public FilePath(string path) {
-		int lastSeparator = path.LastIndexOf('/');
-		if (lastSeparator == -1) {
-			lastSeparator = path.LastIndexOf('\\');
-		}
-
+		int lastSeparator = Math.Max(path.LastIndexOf('/'), path.LastIndexOf('\\'));
 
 		if (lastSeparator == -1) {
 			FileName = path;
