@@ -113,7 +113,10 @@ public class GodotFileStream : Stream {
 		_disposed = true;
 
 		base.Dispose(disposing);
-		_file.Dispose();
+		if (disposing) {
+			_file.Dispose();
+		}
+
 		_file = null!;
 	}
 }
