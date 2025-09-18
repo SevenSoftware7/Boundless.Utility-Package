@@ -6,10 +6,15 @@ using System.IO;
 using System.IO.Compression;
 using System;
 
+/// <summary>
+/// An AssemblyLoadContext that loads assemblies and unmanaged DLLs from a Zip archive.
+/// </summary>
 public sealed class ZipFileAssemblyLoadContext : AssemblyLoadContext, IDisposable {
 	private ZipArchive _zipArchive;
 	private readonly DirectoryPath _assemblyPath;
 
+	/// <param name="zipStream">Stream of the Zip file</param>
+	/// <param name="assemblyPath">Path of the Assembly to load</param>
 	public ZipFileAssemblyLoadContext(Stream zipStream, DirectoryPath assemblyPath) : base(isCollectible: true) {
 		_zipArchive = new(zipStream, ZipArchiveMode.Read, true);
 		_assemblyPath = assemblyPath;
@@ -19,9 +24,11 @@ public sealed class ZipFileAssemblyLoadContext : AssemblyLoadContext, IDisposabl
 		};
 	}
 
+	/// <inheritdoc/>
 	~ZipFileAssemblyLoadContext() {
 		Dispose(false);
 	}
+	/// <inheritdoc/>
 	public void Dispose() {
 		Dispose(true);
 		GC.SuppressFinalize(this);
@@ -33,7 +40,7 @@ public sealed class ZipFileAssemblyLoadContext : AssemblyLoadContext, IDisposabl
 		_zipArchive = null!;
 	}
 
-
+	/// <inheritdoc cref="ZipArchive.GetEntry(string)"/>
 	public ZipArchiveEntry? GetEntry(FilePath filePath) {
 		return _zipArchive.GetEntry(filePath);
 	}
