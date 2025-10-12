@@ -4,19 +4,21 @@ using System;
 using Godot;
 
 [Serializable]
-public struct AnimationPath : IEquatable<AnimationPath>, IEquatable<StringName> {
-	public StringName LibraryName;
-	public StringName AnimationName;
+public readonly struct AnimationPath : IEquatable<AnimationPath>, IEquatable<StringName> {
+	public readonly string LibraryName;
+	public readonly string AnimationName;
+	private readonly string FullName;
 
 
-	public AnimationPath(StringName libraryName, StringName animationName) {
+	public AnimationPath(string libraryName, string animationName) {
 		LibraryName = libraryName;
 		AnimationName = animationName;
+		FullName = $"{LibraryName}/{AnimationName}";
 	}
-	public AnimationPath(StringName path) {
+	public AnimationPath(string path) {
 		ArgumentException.ThrowIfNullOrWhiteSpace(path);
 
-		string[] split = ((string)path).Split('/');
+		string[] split = path.Split('/');
 		switch (split.Length) {
 			case 1:
 				LibraryName = split[0];
@@ -32,7 +34,7 @@ public struct AnimationPath : IEquatable<AnimationPath>, IEquatable<StringName> 
 	}
 
 	public readonly bool Equals(AnimationPath other) => LibraryName == other.LibraryName && AnimationName == other.AnimationName;
-	public readonly bool Equals(StringName? other) => ToString() == other;
+	public readonly bool Equals(StringName other) => ToString() == other;
 
 
 	public static bool operator ==(AnimationPath left, AnimationPath right) => left.Equals(right);
@@ -45,8 +47,8 @@ public struct AnimationPath : IEquatable<AnimationPath>, IEquatable<StringName> 
 	public static bool operator !=(StringName left, AnimationPath right) => !(left == right);
 
 
-	public static implicit operator string?(AnimationPath from) => from.ToString();
-	public static implicit operator StringName?(AnimationPath from) => from.ToString();
+	public static implicit operator string(AnimationPath from) => from.ToString();
+	public static implicit operator StringName(AnimationPath from) => from.ToString();
 
 
 	public override readonly bool Equals(object? obj) => obj switch {
@@ -56,6 +58,6 @@ public struct AnimationPath : IEquatable<AnimationPath>, IEquatable<StringName> 
 		_ => false,
 	};
 
-	public override readonly string ToString() => $"{LibraryName}/{AnimationName}";
+	public override readonly string ToString() => FullName;
 	public override readonly int GetHashCode() => ToString().GetHashCode();
 }
