@@ -4,11 +4,6 @@ using System;
 using System.Runtime.CompilerServices;
 
 public static class Mathfs {
-	public const float Pi = (float)Math.PI;
-	public const double PiDouble = Math.PI;
-
-	public const float Epsilon = 1E-06f;
-	public const double EpsilonDouble = 1E-14;
 
 	extension (float value) {
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -20,18 +15,18 @@ public static class Mathfs {
 		public bool IsEqualApprox(float other) {
 			if (value == other) return true;
 
-			float tolerance = Epsilon * Math.Abs(value);
-			if (tolerance < Epsilon)
+			float tolerance = float.Epsilon * Math.Abs(value);
+			if (tolerance < float.Epsilon)
 			{
-				tolerance = Epsilon;
+				tolerance = float.Epsilon;
 			}
 
-			return Math.Abs(value - other) < (tolerance < Epsilon ? Epsilon : tolerance);
+			return Math.Abs(value - other) < (tolerance < float.Epsilon ? float.Epsilon : tolerance);
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public bool IsZeroApprox() {
-			return Math.Abs(value) < Epsilon;
+			return Math.Abs(value) < float.Epsilon;
 		}
 		public float MoveToward(float to, float delta) {
 			if (Math.Abs(to - value) <= delta) return to;
@@ -43,7 +38,7 @@ public static class Mathfs {
 		}
 		public float ClampedLerp(float to, float amount) {
 			float res = value + (to - value) * amount;
-			if (amount > Epsilon && value.IsEqualApprox(res)) {
+			if (amount > float.Epsilon && value.IsEqualApprox(res)) {
 				return to;
 			}
 			return res;
@@ -80,18 +75,18 @@ public static class Mathfs {
 		public bool IsEqualApprox(double other) {
 			if (value == other) return true;
 
-			double tolerance = EpsilonDouble * Math.Abs(value);
-			if (tolerance < EpsilonDouble)
+			double tolerance = double.Epsilon * Math.Abs(value);
+			if (tolerance < double.Epsilon)
 			{
-				tolerance = EpsilonDouble;
+				tolerance = double.Epsilon;
 			}
 
-			return Math.Abs(value - other) < (tolerance < EpsilonDouble ? EpsilonDouble : tolerance);
+			return Math.Abs(value - other) < (tolerance < double.Epsilon ? double.Epsilon : tolerance);
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public bool IsZeroApprox() {
-			return Math.Abs(value) < EpsilonDouble;
+			return Math.Abs(value) < double.Epsilon;
 		}
 
 
@@ -107,7 +102,7 @@ public static class Mathfs {
 		}
 		public double ClampedLerp(double to, double amount) {
 			double res = value + (to - value) * amount;
-			if (amount > EpsilonDouble && value.IsEqualApprox(res)) {
+			if (amount > double.Epsilon && value.IsEqualApprox(res)) {
 				return to;
 			}
 			return res;

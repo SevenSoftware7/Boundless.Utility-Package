@@ -39,11 +39,11 @@ public readonly record struct AngleCosine(float Value) : IComparable<AngleCosine
 }
 
 public static class RotationExtensions {
-	public static float DegToRad(this float degrees) => degrees * (Mathfs.Pi / 180f);
-	public static float RadToDeg(this float radians) => radians * (180f / Mathfs.Pi);
+	public static float DegToRad(this float degrees) => degrees * (MathF.PI / 180f);
+	public static float RadToDeg(this float radians) => radians * (180f / MathF.PI);
 
-	public static float CosToRad(this float dotProduct) => (1f - dotProduct) * Mathfs.Pi / 2f;
-	public static float RadToCos(this float radians) => 1f - radians * 2f / Mathfs.Pi;
+	public static float CosToRad(this float dotProduct) => (1f - dotProduct) * MathF.PI / 2f;
+	public static float RadToCos(this float radians) => 1f - radians * 2f / MathF.PI;
 
 	public static float CosToDeg(this float dotProduct) => (1f - dotProduct) * 90f;
 	public static float DegToCos(this float degrees) => 1f - degrees / 90f;
