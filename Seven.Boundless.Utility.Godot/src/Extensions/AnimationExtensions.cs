@@ -5,10 +5,12 @@ using System.Linq;
 using Godot;
 
 public static class AnimationExtensions {
-	public static IEnumerable<Animation> GetAnimations(this AnimationPlayer animationPlayer) {
-		return animationPlayer
-			.GetAnimationList()
-			.Select(n => animationPlayer.GetAnimation(n));
+	extension(AnimationPlayer animationPlayer) {
+		public IEnumerable<Animation> GetAnimations() {
+			return animationPlayer
+				.GetAnimationList()
+				.Select(n => animationPlayer.GetAnimation(n));
+		}
 	}
 }
 

@@ -3,55 +3,57 @@ namespace Seven.Boundless.Utility;
 using Godot;
 
 public static class SkeletonExtensions {
-	public static Vector3 GetBonePositionOrDefault(this Skeleton3D? skeleton, string boneName, Vector3 defaultPosition) {
-		if (skeleton is null)
-			return defaultPosition;
+	extension(Skeleton3D? skeleton) {
+		public Vector3 GetBonePositionOrDefault(string boneName, Vector3 defaultPosition) {
+			if (skeleton is null)
+				return defaultPosition;
 
-		int boneIndex = skeleton.FindBone(boneName);
-		if (boneIndex == -1)
-			return defaultPosition;
+			int boneIndex = skeleton.FindBone(boneName);
+			if (boneIndex == -1)
+				return defaultPosition;
 
-		return skeleton.ToGlobal(skeleton.GetBoneGlobalPose(boneIndex).Origin);
-	}
-	public static bool TryGetBonePosition(this Skeleton3D? skeleton, string boneName, out Vector3 position) {
-		position = Vector3.Zero;
-		if (skeleton is null)
-			return false;
+			return skeleton.ToGlobal(skeleton.GetBoneGlobalPose(boneIndex).Origin);
+		}
+		public bool TryGetBonePosition(string boneName, out Vector3 position) {
+			position = Vector3.Zero;
+			if (skeleton is null)
+				return false;
 
-		int boneIndex = skeleton.FindBone(boneName);
-		if (boneIndex == -1)
-			return false;
-
-
-		position = skeleton.ToGlobal(skeleton.GetBoneGlobalPose(boneIndex).Origin);
-		return true;
-	}
+			int boneIndex = skeleton.FindBone(boneName);
+			if (boneIndex == -1)
+				return false;
 
 
-	public static Transform3D GetBoneTransformOrDefault(this Skeleton3D? skeleton, string boneName, Transform3D defaultTransform) {
-		if (skeleton is null)
-			return defaultTransform;
-
-		int boneIndex = skeleton.FindBone(boneName);
-		if (boneIndex == -1)
-			return defaultTransform;
+			position = skeleton.ToGlobal(skeleton.GetBoneGlobalPose(boneIndex).Origin);
+			return true;
+		}
 
 
-		Transform3D pose = skeleton.GetBoneGlobalPose(boneIndex);
-		return skeleton.GlobalTransform * pose;
-	}
-	public static bool TryGetBoneTransform(this Skeleton3D? skeleton, string boneName, out Transform3D transform) {
-		transform = Transform3D.Identity;
-		if (skeleton is null)
-			return false;
+		public Transform3D GetBoneTransformOrDefault(string boneName, Transform3D defaultTransform) {
+			if (skeleton is null)
+				return defaultTransform;
 
-		int boneIndex = skeleton.FindBone(boneName);
-		if (boneIndex == -1)
-			return false;
+			int boneIndex = skeleton.FindBone(boneName);
+			if (boneIndex == -1)
+				return defaultTransform;
 
 
-		Transform3D pose = skeleton.GetBoneGlobalPose(boneIndex);
-		transform = skeleton.GlobalTransform * pose;
-		return true;
+			Transform3D pose = skeleton.GetBoneGlobalPose(boneIndex);
+			return skeleton.GlobalTransform * pose;
+		}
+		public bool TryGetBoneTransform(string boneName, out Transform3D transform) {
+			transform = Transform3D.Identity;
+			if (skeleton is null)
+				return false;
+
+			int boneIndex = skeleton.FindBone(boneName);
+			if (boneIndex == -1)
+				return false;
+
+
+			Transform3D pose = skeleton.GetBoneGlobalPose(boneIndex);
+			transform = skeleton.GlobalTransform * pose;
+			return true;
+		}
 	}
 }
