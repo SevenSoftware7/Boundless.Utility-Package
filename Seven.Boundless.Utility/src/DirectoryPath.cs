@@ -18,31 +18,31 @@ public partial struct DirectoryPath : IEquatable<DirectoryPath> {
 	/// Gets or initializes the protocol of the directory path.
 	/// </summary>
 	public string Protocol {
-		readonly get => _protocol;
+		readonly get;
 		init {
-			_protocol = value;
-			_url = null;
+			field = value;
+			Url = null!;
 		}
-	}
-	private string _protocol = string.Empty;
+	} = string.Empty;
 
 	/// <summary>
 	/// Gets or initializes the cleaned path of the directory.
 	/// </summary>
 	public string Path {
-		readonly get => _path;
+		readonly get;
 		init {
-			_path = CleanSlashes().Match(value).Groups[1].Value;
-			_url = null;
+			field = CleanSlashes().Match(value).Groups[1].Value;
+			Url = null!;
 		}
-	}
-	private string _path = string.Empty;
+	} = string.Empty;
 
 	/// <summary>
 	/// Gets the full URL of the directory path, including the protocol if specified.
 	/// </summary>
-	public string Url => _url ??= string.IsNullOrEmpty(Protocol) ? Path : $"{Protocol}://{Path}";
-	private string? _url;
+	public string Url {
+		get => field ??= string.IsNullOrEmpty(Protocol) ? Path : $"{Protocol}://{Path}";
+		private set;
+	}
 
 
 	/// <summary>
@@ -154,6 +154,7 @@ public partial struct DirectoryPath : IEquatable<DirectoryPath> {
 	/// </summary>
 	/// <returns>A string that represents the current <see cref="DirectoryPath"/>.</returns>
 	public override string ToString() => Url;
+
 	/// <summary>
 	/// Implicitly converts a <see cref="DirectoryPath"/> to a <see cref="string"/>.
 	/// </summary>

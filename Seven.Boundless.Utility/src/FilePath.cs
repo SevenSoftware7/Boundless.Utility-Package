@@ -15,43 +15,41 @@ public struct FilePath : IEquatable<FilePath> {
 	/// Gets the file name component of the file path.
 	/// </summary>
 	public string FileName {
-		readonly get => _fileName;
+		readonly get;
 		init {
-			_fileName = value;
-			_fullFileName = null;
+			field = value;
+			FullFileName = null!;
 		}
-	}
-	private string _fileName = string.Empty;
+	} = string.Empty;
 
 	/// <summary>
 	/// Gets the file extension component of the file path.
 	/// </summary>
 	public string Extension {
-		readonly get => _extension;
+		readonly get;
 		init {
-			_extension = value;
-			_fullFileName = null;
+			field = value;
+			FullFileName = null!;
 		}
-	}
-	private string _extension = string.Empty;
+	} = string.Empty;
 
 	/// <summary>
 	/// Gets the full file name, including the extension if present.
 	/// </summary>
-	public string FullFileName => _fullFileName ??= string.IsNullOrEmpty(Extension) ? FileName : $"{FileName}.{Extension}";
-	private string? _fullFileName;
+	public string FullFileName {
+		get => field ??= string.IsNullOrEmpty(Extension) ? FileName : $"{FileName}.{Extension}";
+		private set;
+	}
 
 	/// <summary>
 	/// Gets the full path, including the directory and full file name.
 	/// </summary>
-	public string Path => _path ??= string.IsNullOrEmpty(Directory.Path) ? FullFileName : $"{Directory.Path}/{FullFileName}";
-	private string? _path;
+	public string Path => field ??= string.IsNullOrEmpty(Directory.Path) ? FullFileName : $"{Directory.Path}/{FullFileName}";
 
 	/// <summary>
 	/// Gets the URL representation of the file path.
 	/// </summary>
-	public string Url => _url ??= string.IsNullOrEmpty(Directory.Url) ? FullFileName : $"{Directory.Url}/{FullFileName}";
-	private string? _url;
+	public string Url => field ??= string.IsNullOrEmpty(Directory.Url) ? FullFileName : $"{Directory.Url}/{FullFileName}";
 
 
 	/// <summary>
